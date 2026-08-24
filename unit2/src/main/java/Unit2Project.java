@@ -33,19 +33,15 @@ public class Unit2Project {
      */
     public void addTicket(String ticket) {
 
-        if (ticket.isEmpty()){ //Checking for empty/null ticket
+        if (ticket == null || ticket.isEmpty()){ //Checking for empty/null ticket
 
-        throw new IllegalArgumentException("Ticket is empty"); //Exception thrown with explanation
+        throw new IllegalArgumentException("Ticket cannot be null or empty."); //Exception thrown with explanation
         }
-
-        try { //Other input error handling
+        else{
             ticketQueue.add(ticket); //Add to back of queue if able
+            }
         }
-        catch (IllegalArgumentException ex){
-        System.out.print ("Ticket is empty"); //Error messaging
 
-        }
-    }
 
     /**
      * Returns the next ticket in the queue without removing it.
@@ -57,8 +53,8 @@ public class Unit2Project {
      *         no tickets are available if the queue is empty
      */
     public String peekNextTicket() {
-        if (ticketQueue.isEmpty()){ //empty check
-            return "The queue is empty";
+        if (ticketQueue == null || ticketQueue.isEmpty()){ //empty check
+            return "No tickets available.";
         }
         else {
             return ticketQueue.peek(); //returns the first item in queue without removing
@@ -75,12 +71,12 @@ public class Unit2Project {
      *         "No tickets to process." if the queue is empty
      */
     public String processNextTicket() {
-        if (ticketQueue.isEmpty()){ //empty check
-            return "No tickets to process";
+        if (ticketQueue == null || ticketQueue.isEmpty()){ //empty check
+            return "No tickets to process.";
         }
         else {
-            actionStack.add("ticketQueue.remove()"); //add action to the action stack
-            return ticketQueue.remove(); //retrun and remove the first item in queue
+            actionStack.push("Processed ticket: " + ticketQueue.peek()); //add action to the action stack
+            return ticketQueue.remove(); //return and remove the first item in queue
         }
     }
 
@@ -94,8 +90,8 @@ public class Unit2Project {
      *         "No actions to undo." if there are no recorded actions
      */
     public String undoLastAction() {
-        if (actionStack.isEmpty()){ //empty check
-            return "No actions to undo";
+        if (actionStack == null || actionStack.isEmpty()){ //empty check
+            return "No actions to undo.";
         }
         else {
             return actionStack.pop(); //return and remove the top item in the stack
