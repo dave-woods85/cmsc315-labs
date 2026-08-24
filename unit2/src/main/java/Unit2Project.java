@@ -15,7 +15,7 @@ import java.util.Queue;
  * <p>This project demonstrates common queue and stack operations
  * including adding, previewing, processing, and undoing actions.</p>
  *
- * @author First Last
+ * @author David Woods
  * @version 1.0
  */
 public class Unit2Project {
@@ -32,7 +32,19 @@ public class Unit2Project {
      * @throws IllegalArgumentException if the ticket is null or empty
      */
     public void addTicket(String ticket) {
-        //TODO update
+
+        if (ticket.isEmpty()){ //Checking for empty/null ticket
+
+        throw new IllegalArgumentException("Ticket is empty"); //Exception thrown with explanation
+        }
+
+        try { //Other input error handling
+            ticketQueue.add(ticket); //Add to back of queue if able
+        }
+        catch (IllegalArgumentException ex){
+        System.out.print ("Ticket is empty"); //Error messaging
+
+        }
     }
 
     /**
@@ -45,8 +57,12 @@ public class Unit2Project {
      *         no tickets are available if the queue is empty
      */
     public String peekNextTicket() {
-        //TODO
-        return null;
+        if (ticketQueue.isEmpty()){ //empty check
+            return "The queue is empty";
+        }
+        else {
+            return ticketQueue.peek(); //returns the first item in queue without removing
+        }
     }
 
     /**
@@ -59,8 +75,13 @@ public class Unit2Project {
      *         "No tickets to process." if the queue is empty
      */
     public String processNextTicket() {
-        //TODO
-        return null;
+        if (ticketQueue.isEmpty()){ //empty check
+            return "No tickets to process";
+        }
+        else {
+            actionStack.add("ticketQueue.remove()"); //add action to the action stack
+            return ticketQueue.remove(); //retrun and remove the first item in queue
+        }
     }
 
     /**
@@ -73,8 +94,13 @@ public class Unit2Project {
      *         "No actions to undo." if there are no recorded actions
      */
     public String undoLastAction() {
-        //TODO
-        return null;
+        if (actionStack.isEmpty()){ //empty check
+            return "No actions to undo";
+        }
+        else {
+            return actionStack.pop(); //return and remove the top item in the stack
+        }
+
     }
 
 
@@ -85,7 +111,7 @@ public class Unit2Project {
      * @return the number of pending tickets
      */
     public int getPendingTicketCount() {
-        return ticketQueue.size();
+        return ticketQueue.size(); //returns the number of tickets in queue
     }
 
     /**
@@ -94,7 +120,7 @@ public class Unit2Project {
      * @return the size of the action history stack
      */
     public int getActionHistorySize() {
-        return actionStack.size();
+        return actionStack.size(); //return the number of actions in the stack
     }
 
     public static void main(String[] args) {
