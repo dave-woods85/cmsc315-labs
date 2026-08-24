@@ -40,6 +40,24 @@ public class Unit2PeekNextTicketTest {
                 app.getPendingTicketCount(),
                 "Queue size should remain 1 after peek.");
     }
+    @Test
+    @DisplayName("testPeekMultipleTickets returns the correct ticket and does not modify state when queue has 3 elements")
+    public void testPeekMultipleTickets(){
+        Unit2Project app = new Unit2Project();
 
+        app.addTicket("Recover Account");
+        app.addTicket("Change Username");
+        app.addTicket("Reset Password");
+
+        String result = app.peekNextTicket();
+
+        assertEquals("Recover Account",
+                result,
+                "Peek should return the first ticket added to the queue.");
+
+        assertEquals(3,
+                app.getPendingTicketCount(),
+                "Queue size should remain 3 after peek.");
+    }
 
 }
