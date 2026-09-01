@@ -23,7 +23,7 @@ public class Unit3ProjectTest {
         );
     }
     @Test
-    void displaySongsTest() {
+    void displaySongsTest() { // this test was already created
         Unit3Project app = new Unit3Project();
 
         app.addSong("Song A");
