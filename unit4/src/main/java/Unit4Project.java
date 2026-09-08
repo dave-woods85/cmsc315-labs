@@ -47,7 +47,7 @@ public class Unit4Project {
     }
 
     // The root node is the starting point of the tree
-    private TreeNode root = new TreeNode("Budget");
+    private final TreeNode root = new TreeNode("Budget");
 
     /**
      * Returns the root node of the budget tree.
@@ -66,11 +66,8 @@ public class Unit4Project {
      */
     public void addChild(TreeNode parent, String childName) {
 
-        // TODO 1: Create a new TreeNode object using childName
-        TreeNode newChild = new TreeNode(childName);
-
-        // TODO 2: Add the new child node to the parent's children list
-        parent.children.add(newChild);
+        // Create a new TreeNode and add it to the children list for the parent node that was passed
+        parent.children.add(new TreeNode(childName));
 
     }
 
@@ -87,17 +84,18 @@ public class Unit4Project {
         if (node == null){
             return false;
         }
-
+        if (Objects.equals(node.name, target)){ // Check the current node for a match
+            return true;
+        }
         // Loop to check all the children in the 'children' list
         for (TreeNode childNode : node.children){
-            if (Objects.equals(childNode.name, target)){ // Return true for a match
-                return true;
-            }
-            else{ // Recursively search each child's 'children' list
-                return contains(childNode, target);
+                boolean foundChild = contains(childNode, target);
+                if (foundChild){ // avoids exiting early for null (end of the list)
+                    return true;
+                }
             }
 
-        }
+
         // Return false if the target was not found
         return false;
     }
@@ -116,10 +114,10 @@ public class Unit4Project {
         }
 
 
-        // TODO 7: Print the current node's name
+        // First print out the parent node
         System.out.println(node.name);
 
-        // TODO 8: Use a loop to recursively print each child node
+        // Print out each child in the list for the current node
         for (TreeNode childNode : node.children){
             if (childNode != null)
                 System.out.println(childNode.name);
@@ -159,6 +157,7 @@ public class Unit4Project {
         System.out.println("Contains Food? " + app.contains(root, "Food"));
         System.out.println("Contains Rent? " + app.contains(root, "Rent"));
         System.out.println("Contains Travel? " + app.contains(root, "Travel"));
+        System.out.println("Contains Utilities? " + app.contains(root, "Utilities"));
 
         // Print the tree using preorder traversal
         System.out.println("\nPreOrder Traversal:");

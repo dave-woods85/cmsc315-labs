@@ -139,4 +139,16 @@ public class Unit4ProjectTest {
         assertTrue(result.contains("Housing"));
         assertTrue(result.contains("Food"));
     }
+
+    @Test
+    void handlesNullAndRootOnlyEdgeCases() {  // Added test for null and root edge cases
+        Unit4Project app = new Unit4Project(); // Create a new tree with just the root node
+        Unit4Project.TreeNode root = app.getRoot();
+
+        assertFalse(app.contains(null, "Transportation")); // Search from a null node
+        assertTrue(app.contains(root, "Budget")); // Search for root only
+        assertFalse(app.contains(root, "Transportation")); // Search root only but missing node
+
+        System.out.println("Null and root only edge cases passed!"); // Confirmation message
+    }
 }
