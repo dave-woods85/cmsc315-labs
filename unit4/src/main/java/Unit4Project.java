@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Unit4Project
@@ -17,7 +18,7 @@ import java.util.List;
  * - Searching a tree recursively
  * - Printing a tree using preorder traversal
  *
- * @author FIRST LAST
+ * @author DAVID WOODS
  * @version 1.0
  */
 
@@ -66,9 +67,10 @@ public class Unit4Project {
     public void addChild(TreeNode parent, String childName) {
 
         // TODO 1: Create a new TreeNode object using childName
-
+        TreeNode newChild = new TreeNode(childName);
 
         // TODO 2: Add the new child node to the parent's children list
+        parent.children.add(newChild);
 
     }
 
@@ -81,15 +83,21 @@ public class Unit4Project {
      */
     public boolean contains(TreeNode node, String target) {
 
-        // TODO 3: If node is null, return false
+        // Check for a null node (ie: no more children)
+        if (node == null){
+            return false;
+        }
 
+        // Loop to check all the children in the 'children' list
+        for (TreeNode childNode : node.children){
+            if (Objects.equals(childNode.name, target)){ // Return true for a match
+                return true;
+            }
+            else{ // Recursively search each child's 'children' list
+                return contains(childNode, target);
+            }
 
-        // TODO 4: If the current node's name matches target, return true
-
-
-        // TODO 5: Use a loop to recursively search each child node
-
-
+        }
         // Return false if the target was not found
         return false;
     }
@@ -102,13 +110,20 @@ public class Unit4Project {
      */
     public void printPreOrder(TreeNode node) {
 
-        // TODO 6: If node is null, stop the method
+        // Checking for null node (nothing child node to print)
+        if (node == null){
+            return;
+        }
 
 
         // TODO 7: Print the current node's name
-
+        System.out.println(node.name);
 
         // TODO 8: Use a loop to recursively print each child node
+        for (TreeNode childNode : node.children){
+            if (childNode != null)
+                System.out.println(childNode.name);
+            }
 
     }
 
