@@ -13,27 +13,43 @@
  * - Arrays
  * - Algorithm Efficiency
  *
- * Author: Your Name
+ * Author: DAVID WOODS
 
  */
 public class Unit5Project {
 
     public int linearSearch(int[] scores, int targetScore) {
-
-        //TODO 1: Loop through each score in the scores array
-
-        //TODO 2: Check whether the current score matches targetScore
-
-        //TODO 3: Return the index where the score is found
-
-        //TODO 4: Return -1 if the target score is not found
-        return 0;
+        // Linear search has, funnily enough, a linear efficiency O(N)
+        // Loop through each score in the scores array
+        for (int s = 0; s < scores.length; s++) {
+        // Check whether the current score matches targetScore
+            if (scores[s] == targetScore){
+        // Return the index where the score is found
+                return s;
+            }
+        }
+        // Return -1 if the target score is not found
+        return -1;
     }
 
     public int binarySearch(int[] scores, int targetScore) {
+        // Binary search has, a base 2 (binary) logarithmic efficiency O(log2(N))
+        // Implement binary search for a sorted scores array
+        int high = scores.length -1; // establish low and high indices
+        int low = 0;
 
-        //TODO 5: Implement binary search for a sorted scores array
-        return 0;
+        while (low <= high){ // loop until the list is complete or a match is found
+            int mid = (high + low) / 2;
+            if (scores[mid] == targetScore){ // match is found
+                return mid;
+            } else if (targetScore < scores[mid]) { // reassign indices
+                high = mid - 1;
+            }else if (targetScore > scores[mid]) { // reassign indices
+                low = mid + 1;
+            }
+        }
+
+        return -1; // match not found
     }
 
     public void printConceptualAnalysis() {

@@ -87,4 +87,18 @@ public class Unit5ProjectTest {
         );
     }
 
+    @Test // New test method to check for handling of empty array
+    void binarySearchHandlesEmptyArray(){
+
+        Unit5Project app = new Unit5Project();
+
+        int[] scores = {}; // setup empty array
+        int result = app.linearSearch(scores, 9 ); // search for a number
+
+        // ensure the not for result fo -1 is returned
+        assertEquals(-1, result,
+                "linearSearch should return -1 when the score is not found.");
+
+    }
+
 }
