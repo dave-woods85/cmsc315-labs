@@ -106,4 +106,19 @@ public class Unit6ProjectTest {
                 "PASS: Updating existing SKU P100 changed the quantity to 20 without increasing inventory size."
         );
     }
+
+    @Test
+    void removeMissingItemReturnsFalse(){
+
+        Unit6Project app = new Unit6Project(); // new map
+        // adding 2 items
+        app.addOrUpdateItem("P100", 15);
+        app.addOrUpdateItem("P500", 20);
+        // trying to remove an item that doesn't exist
+        boolean result = app.removeItem( "P999");
+        // checking for false return and same map size
+        assertFalse(result);
+        assertEquals(2, app.size());
+
+    }
 }

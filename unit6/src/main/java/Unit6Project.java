@@ -23,32 +23,45 @@ public class Unit6Project {
 
         // TODO 1: Add the SKU and quantity to the inventory map.
         // If the SKU already exists, update its quantity.
+        inventory.put(sku, quantity); // Java built-in functionality
     }
 
     public Integer getQuantity(String sku) {
 
         // TODO 2: Return the quantity stored for the SKU.
         // If the SKU does not exist, this should return null.
+        if (inventory.containsKey(sku)){ // checks for existence first
+            return inventory.get(sku);
+        }
         return null;
     }
 
     public boolean containsSku(String sku) {
 
         // TODO 3: Return true if the SKU exists in the inventory.
-        return false;
+
+        return inventory.containsKey(sku); // Java built-in
     }
 
     public boolean removeItem(String sku) {
 
         // TODO 4: Remove the item if the SKU exists.
         // Return true if removed; return false if the SKU was not found.
-        return false;
+        if (inventory.containsKey(sku)){ // checks for existence first
+            inventory.remove(sku);
+            return true;
+
+        }
+        else{
+            return false;
+        }
     }
 
     public int size() {
 
         // TODO 5: Return the number of items in the inventory.
-        return 0;
+
+        return inventory.size(); // Once again, Java built-in
     }
 
     public static void main(String[] args) {
