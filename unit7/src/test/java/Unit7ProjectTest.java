@@ -98,4 +98,22 @@ public class Unit7ProjectTest {
                 "PASS: selectionSort sorted the price array in ascending order."
         );
     }
+
+    @Test
+    void selectionSortHandlesEmptyArray(){
+
+        Unit7Project app = new Unit7Project();
+
+        int[] prices = {}; // create empty array
+        assertArrayEquals(
+                new int[]{},
+                prices,
+                "Array should still be empty");
+
+        assertDoesNotThrow(() -> { // check for thrown exception
+            app.selectionSort(prices);
+        }
+        );
+
+    }
 }
