@@ -27,8 +27,8 @@
  * - Computer and communication networks
  * - Transportation and logistics systems
  *
- * Author: ______________________
- * Date: ________________________
+ * Author: DAVID WOODS
+ * Date: 2 OCT 2026
  * ============================================================
  */
 
@@ -44,96 +44,117 @@ public class Unit8Project {
     private Map<String, List<String>> graph = new HashMap<>();
 
     public void addBuilding(String building) {
-        // TODO (Student): Add the building to the graph.
 
-        // TODO (Student): Make sure duplicate buildings are not added.
+        // Make sure duplicate buildings are not added.
+        if (!graph.containsKey(building)){
+            // Add the building to the graph.
+            // Store the building with an empty neighbor list.
 
-        // TODO (Student): Store the building with an empty neighbor list.
-
+            graph.put(building, new ArrayList<>());
+        }
     }
 
     public void addPath(String from, String to) {
-        // TODO (Student): Ensure the starting building exists in the graph.
+        // Ensure the starting building exists in the graph.
+        // Ensure the destination building exists in the graph.
+        if(graph.containsKey(from) && graph.containsKey(to)){
+            // Add a path from the starting building to the destination building.
+            graph.computeIfAbsent(from, value -> new ArrayList<>()).add(to);
+            // Add a path from the destination building back to the starting building.
+            graph.computeIfAbsent(to, value -> new ArrayList<>()).add(from);
+            // This graph is undirected, so paths must work in both directions.
 
-        // TODO (Student): Ensure the destination building exists in the graph.
-
-        // TODO (Student): Add a path from the starting building to the destination building.
-
-        // TODO (Student): Add a path from the destination building back to the starting building.
-        // This graph is undirected, so paths must work in both directions.
+        }
 
     }
 
     public List<String> getNeighbors(String building) {
-        // TODO (Student): Return the list of neighboring buildings for the given building.
+        // Return the list of neighboring buildings for the given building.
+        if(graph.containsKey(building)){
+           return graph.get(building);
+            }
 
-        // TODO (Student): Return an empty list if the building does not exist.
+        // Return an empty list if the building does not exist.
+        else{
+            return new ArrayList<>();
+        }
 
-        return new ArrayList<>();
     }
 
     public boolean hasPath(String start, String goal) {
-        // TODO (Student): Return false if either building does not exist.
+        // Return false if either building does not exist.
+        if(!graph.containsKey(start) || !graph.containsKey(goal)){
+            return false;
+        }
 
-        // TODO (Student): Use Breadth-First Search (BFS) to determine whether a route exists.
+        // Use Breadth-First Search (BFS) to determine whether a route exists.
+        // Create a set to track visited buildings.
+        Set<String> visited = new HashSet<>();
 
-        // TODO (Student): Create a set to track visited buildings.
+        // Create a queue to process buildings in BFS order.
+        Queue<String> queue = new LinkedList<>();
 
-        // TODO (Student): Create a queue to process buildings in BFS order.
+        // Add the starting building to the queue and mark it as visited.
+        queue.add(start);
+        visited.add(start);
 
-        // TODO (Student): Add the starting building to the queue and mark it as visited.
-
-        // TODO (Student): Continue searching while the queue is not empty.
-
-        // TODO (Student): Remove the next building from the queue.
-
-        // TODO (Student): Return true if the current building is the goal.
-
-        // TODO (Student): Visit each unvisited neighbor and add it to the queue.
-
-        // TODO (Student): Return false if no route is found.
-
+        // Continue searching while the queue is not empty.
+        while (!queue.isEmpty()) {
+            // Remove the next building from the queue.
+            String currentBuilding = queue.remove();
+            // Return true if the current building is the goal.
+            if (currentBuilding.equals(goal)){
+                return true;
+            }
+            visited.add(currentBuilding);
+            // Visit each unvisited neighbor and add it to the queue.
+            for (String b : getNeighbors(currentBuilding)){
+                if (!visited.contains(b)){
+                    queue.add(b);
+                }
+            }
+        }
+        // Return false if no route is found.
         return false;
     }
 
     public int size() {
-        // TODO (Student): Return the number of buildings currently stored in the graph.
-
-        return 0;
+        // Return the number of buildings currently stored in the graph.
+        return graph.size();
     }
 
     public static void main(String[] args) {
         Unit8Project app = new Unit8Project();
 
-        // TODO (Student): Add the campus buildings.
+        // Add the campus buildings.
         app.addBuilding("Library");
         app.addBuilding("Science Hall");
         app.addBuilding("Gym");
         app.addBuilding("Cafeteria");
 
-        // TODO (Student): Create walking paths between buildings.
+        // Create walking paths between buildings.
         app.addPath("Library", "Science Hall");
         app.addPath("Science Hall", "Gym");
         app.addPath("Gym", "Cafeteria");
 
-        // TODO (Student): Verify the graph size.
+        // Verify the graph size.
         System.out.println("Number of buildings: " + app.size());
 
-        // TODO (Student): Display the neighbors of each building.
+        // Display the neighbors of each building.
         System.out.println("Neighbors of Library: "
                 + app.getNeighbors("Library"));
 
         System.out.println("Neighbors of Science Hall: "
                 + app.getNeighbors("Science Hall"));
 
-        // TODO (Student): Test whether routes exist between buildings.
+        // Test whether routes exist between buildings.
         System.out.println("Path from Library to Gym: "
                 + app.hasPath("Library", "Gym"));
 
         System.out.println("Path from Library to Cafeteria: "
                 + app.hasPath("Library", "Cafeteria"));
 
-        // TODO (Student): Test a building that does not exist.
+        // Test a building that does not exist.
         System.out.println("Path from Library to Unknown: "
                 + app.hasPath("Library", "Unknown"));
     }

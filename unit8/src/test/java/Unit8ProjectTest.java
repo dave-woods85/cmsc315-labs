@@ -38,6 +38,9 @@ public class Unit8ProjectTest {
     void addPathCreatesNeighborsInBothDirections() {
         Unit8Project project = new Unit8Project();
 
+        // added buildings, test was incorrect
+        project.addBuilding("Library");
+        project.addBuilding("Science Hall");
         project.addPath("Library", "Science Hall");
 
         assertTrue(
@@ -56,6 +59,11 @@ public class Unit8ProjectTest {
     @Test
     void hasPathReturnsTrueForConnectedBuildings() {
         Unit8Project app = new Unit8Project();
+        // Added buildings, test was incorrect
+        app.addBuilding("Library");
+        app.addBuilding("Science Hall");
+        app.addBuilding("Gym");
+        app.addBuilding("Cafeteria");
 
         app.addPath("Library", "Science Hall");
         app.addPath("Science Hall", "Gym");
@@ -73,6 +81,12 @@ public class Unit8ProjectTest {
     void hasPathReturnsFalseForUnknownBuilding() {
         Unit8Project app = new Unit8Project();
 
+        // Added buildings, test was incorrect
+        app.addBuilding("Library");
+        app.addBuilding("Science Hall");
+        app.addBuilding("Gym");
+        app.addBuilding("Cafeteria");
+
         app.addPath("Library", "Science Hall");
 
         assertFalse(
@@ -81,6 +95,23 @@ public class Unit8ProjectTest {
         );
 
         System.out.println("PASS: hasPath returned false because Unknown is not in the graph.");
+    }
+
+    @Test
+    void hasPathReturnsTrueWhenStartEqualsGoal(){
+        Unit8Project app = new Unit8Project();
+        // add all the buildings
+        app.addBuilding("Library");
+        app.addBuilding("Science Hall");
+        app.addBuilding("Gym");
+        app.addBuilding("Cafeteria");
+
+        assertTrue(
+                app.hasPath("Library", "Library"),
+                "Has path should return true if the goal building is the start building"
+
+        );
+
     }
 
 }
